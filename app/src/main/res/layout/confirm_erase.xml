@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_color"
+    android:weightSum="1"
+
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_weight="0.09">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="Dữ liệu nhập vào form sẽ bị xóa hêt"
+            android:textColor="@color/pink_color"
+
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:id="@+id/textView17"
+            android:layout_gravity="center_horizontal"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/white_color"
+            android:id="@+id/textView18"
+            android:layout_gravity="center_horizontal"
+            android:layout_below="@+id/textView17"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Xóa"
+            android:layout_marginTop="40dp"
+            android:textColor="@color/pink_color"
+            android:background="@drawable/edit_text1"
+            android:id="@+id/eraseBtn"
+
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:layout_toLeftOf="@+id/backBtn"
+            android:layout_toStartOf="@+id/backBtn" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edit_text1"
+            android:text="Hủy"
+            android:textColor="@color/pink_color"
+            android:id="@+id/backBtn"
+            android:layout_marginLeft="20dp"
+            android:layout_alignTop="@+id/eraseBtn"
+            android:layout_toRightOf="@+id/textView20"
+            android:layout_toEndOf="@+id/textView20" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:id="@+id/textView20"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/eraseBtn"
+            android:layout_centerHorizontal="true" />
+
+
+    </RelativeLayout>
+
+</LinearLayout>
