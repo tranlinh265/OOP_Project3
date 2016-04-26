@@ -16,9 +16,9 @@
         android:id="@+id/eraseImageButton"
         android:src="@drawable/thungrac_icon"
         android:background="@color/white_color"
-        android:onClick="OnClick"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
+        android:onClick="Delete"
         android:layout_alignParentEnd="true" />
 
     <TextView

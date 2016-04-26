@@ -2,6 +2,7 @@ package oopprojet.tranlinh.com.oop_project;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -17,16 +18,25 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
+
 public class MainActivity extends AppCompatActivity {
     private String status;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final EditText editText = (EditText)findViewById(R.id.editText);
-        final EditText editText1 = (EditText)findViewById(R.id.keyWordText);
+        final EditText editText = (EditText) findViewById(R.id.editText);
+        final EditText editText1 = (EditText) findViewById(R.id.keyWordText);
 
         editText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -46,29 +56,33 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
-    public void OnClick(View view){
-        switch (view.getId()){
-            case R.id.guideBtn:{
+
+    public void OnClick(View view) {
+        switch (view.getId()) {
+            case R.id.guideBtn: {
                 final Dialog guideDialog = new Dialog(this);
                 guideDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 guideDialog.setContentView(R.layout.guide);
                 guideDialog.setCanceledOnTouchOutside(false);
                 Window window = guideDialog.getWindow();
-                WindowManager.LayoutParams wlp =window.getAttributes();
+                WindowManager.LayoutParams wlp = window.getAttributes();
 
                 wlp.gravity = Gravity.CENTER;
 
                 guideDialog.show();
-                Button backBtn = (Button)guideDialog.findViewById(R.id.backBtn);
-                backBtn.setOnClickListener(new View.OnClickListener(){
-                    public void onClick(View v){
+                Button backBtn = (Button) guideDialog.findViewById(R.id.backBtn);
+                backBtn.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
                         guideDialog.dismiss();
                     }
                 });
                 break;
             }
-            case R.id.eraseImageButton:{
+            case R.id.eraseImageButton: {
                 final Dialog eraseConfirmDialog = new Dialog(this);
                 eraseConfirmDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 eraseConfirmDialog.setContentView(R.layout.confirm_erase);
@@ -77,40 +91,40 @@ public class MainActivity extends AppCompatActivity {
 
                 eraseConfirmDialog.show();
 
-                Button backBtn = (Button)eraseConfirmDialog.findViewById(R.id.backBtn);
-                backBtn.setOnClickListener(new View.OnClickListener(){
-                    public void onClick(View v){
+                Button backBtn = (Button) eraseConfirmDialog.findViewById(R.id.backBtn);
+                backBtn.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
                         eraseConfirmDialog.dismiss();
                     }
                 });
-                Button eraseBtn = (Button)eraseConfirmDialog.findViewById(R.id.eraseBtn);
-                eraseBtn.setOnClickListener(new View.OnClickListener(){
-                    public void  onClick(View v){
-                        Intent intent = new Intent(MainActivity.this,MainActivity.class);
+                Button eraseBtn = (Button) eraseConfirmDialog.findViewById(R.id.eraseBtn);
+                eraseBtn.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        Intent intent = new Intent(MainActivity.this, MainActivity.class);
                         startActivity(intent);
                     }
                 });
                 break;
             }
-            case R.id.statusBtn:{
-                status ="Mới";
+            case R.id.statusBtn: {
+                status = "Mới";
                 final Dialog statusDialog = new Dialog(this);
                 statusDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 statusDialog.setContentView(R.layout.status);
                 statusDialog.setCanceledOnTouchOutside(false);
 
                 statusDialog.show();
-                final Button tmpBtn = (Button)findViewById(R.id.statusBtn);
+                final Button tmpBtn = (Button) findViewById(R.id.statusBtn);
                 Button okBtn = (Button) statusDialog.findViewById(R.id.okBtn);
 
-                final RadioGroup radioGroup = (RadioGroup)statusDialog.findViewById(R.id.radioGroup);
+                final RadioGroup radioGroup = (RadioGroup) statusDialog.findViewById(R.id.radioGroup);
 
-                radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener(){
-                    public void onCheckedChanged(RadioGroup group, int checkedId){
+                radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                    public void onCheckedChanged(RadioGroup group, int checkedId) {
 
                         int checkedRadioId = group.getCheckedRadioButtonId();
-                        RadioButton radioButton =(RadioButton)statusDialog.findViewById(checkedRadioId);
-                        status = (String)radioButton.getText();
+                        RadioButton radioButton = (RadioButton) statusDialog.findViewById(checkedRadioId);
+                        status = (String) radioButton.getText();
                     }
                 });
 
@@ -152,5 +166,49 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void Delete() {
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "Main Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app URL is correct.
+                Uri.parse("android-app://oopprojet.tranlinh.com.oop_project/http/host/path")
+        );
+        AppIndex.AppIndexApi.start(client, viewAction);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "Main Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app URL is correct.
+                Uri.parse("android-app://oopprojet.tranlinh.com.oop_project/http/host/path")
+        );
+        AppIndex.AppIndexApi.end(client, viewAction);
+        client.disconnect();
     }
 }
