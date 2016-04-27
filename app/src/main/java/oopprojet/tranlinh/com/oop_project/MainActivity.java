@@ -15,6 +15,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -29,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
+    private ImageButton eraseImageButton;
+    private EditText keyWordText,PriceText;
+    private Button button,button2,button3,statusBtn,searchBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,8 +63,30 @@ public class MainActivity extends AppCompatActivity {
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
-    }
 
+        eraseImageButton = (ImageButton) findViewById(R.id.eraseImageButton);
+//        eraseImageButton.setOnClickListener(MainActivity.this);
+
+        keyWordText = (EditText) findViewById(R.id.keyWordText);
+        PriceText = (EditText) findViewById(R.id.editText);
+        button = (Button)findViewById(R.id.button);
+//        statusBtn = (Button)findViewById(R.id.statusBtn);
+
+        button2 = (Button)findViewById(R.id.button2);
+        button3 = (Button)findViewById(R.id.button3);
+        statusBtn = (Button)findViewById(R.id.statusBtn);
+        searchBtn = (Button)findViewById(R.id.searchBtn);
+        statusBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DanhMuc();
+            }
+        });
+    }
+    public void DanhMuc(){
+        Intent viewDanhMuc = new Intent(this,DanhMuc.class);
+        startActivity(viewDanhMuc);
+    }
     public void OnClick(View view) {
         switch (view.getId()) {
             case R.id.guideBtn: {
@@ -100,8 +126,13 @@ public class MainActivity extends AppCompatActivity {
                 Button eraseBtn = (Button) eraseConfirmDialog.findViewById(R.id.eraseBtn);
                 eraseBtn.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        Intent intent = new Intent(MainActivity.this, MainActivity.class);
-                        startActivity(intent);
+                        keyWordText.setText("");
+                        PriceText.setText("");
+                        button.setText("Tất cả");
+                        button2.setText("Tất cả");
+                        button3.setText("Tất cả");
+                        statusBtn.setText("");
+                        eraseConfirmDialog.dismiss();
                     }
                 });
                 break;
@@ -140,7 +171,6 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             }
-
 
         }
     }

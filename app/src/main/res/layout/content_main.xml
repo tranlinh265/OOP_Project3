@@ -18,7 +18,7 @@
         android:background="@color/white_color"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:onClick="Delete"
+        android:onClick="OnClick"
         android:layout_alignParentEnd="true" />
 
     <TextView
