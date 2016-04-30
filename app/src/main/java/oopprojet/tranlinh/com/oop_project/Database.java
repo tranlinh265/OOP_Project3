@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  * Created by Tran Linh on 4/25/2016.
  */
 public class Database extends SQLiteOpenHelper {
-
+    SQLiteDatabase database = null;
     // ten database
     private static final String DATABASE_NAME ="database.db";
 
@@ -80,6 +80,7 @@ public class Database extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_MT);
         db.execSQL(CREATE_TABLE_NH);
         db.execSQL(CREATE_TABLE_TT);
+        doInsertInToDB();
     }
 
     @Override

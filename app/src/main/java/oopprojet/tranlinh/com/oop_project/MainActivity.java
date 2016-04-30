@@ -36,7 +36,8 @@ public class MainActivity extends AppCompatActivity {
     private EditText keyWordText,PriceText;
     private Button button2,button3,statusBtn,searchBtn;
     public Button button;
-    private Database database = null;
+    private Database database = new Database(this);
+    private SQLiteDatabase Database = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
                 search();
             }
         });
+//        database.doInsertInToDB();
 
     }
     // kiem tra su ton tai cua database
