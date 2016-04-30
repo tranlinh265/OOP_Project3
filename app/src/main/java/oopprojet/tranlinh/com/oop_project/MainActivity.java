@@ -2,6 +2,8 @@ package oopprojet.tranlinh.com.oop_project;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -32,7 +34,9 @@ public class MainActivity extends AppCompatActivity {
     private GoogleApiClient client;
     private ImageButton eraseImageButton;
     private EditText keyWordText,PriceText;
-    private Button button,button2,button3,statusBtn,searchBtn;
+    private Button button2,button3,statusBtn,searchBtn;
+    public Button button;
+    private Database database = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,22 +74,78 @@ public class MainActivity extends AppCompatActivity {
         keyWordText = (EditText) findViewById(R.id.keyWordText);
         PriceText = (EditText) findViewById(R.id.editText);
         button = (Button)findViewById(R.id.button);
-//        statusBtn = (Button)findViewById(R.id.statusBtn);
-
-        button2 = (Button)findViewById(R.id.button2);
-        button3 = (Button)findViewById(R.id.button3);
-        statusBtn = (Button)findViewById(R.id.statusBtn);
-        searchBtn = (Button)findViewById(R.id.searchBtn);
-        statusBtn.setOnClickListener(new View.OnClickListener() {
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DanhMuc();
             }
         });
+        button2 = (Button)findViewById(R.id.button2);
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NhanHieu();
+            }
+        });
+        button3 = (Button)findViewById(R.id.button3);
+        button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                KichCo();
+            }
+        });
+        statusBtn = (Button)findViewById(R.id.statusBtn);
+//        statusBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                DanhMuc();
+//            }
+//        });
+        searchBtn = (Button)findViewById(R.id.searchBtn);
+        searchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                search();
+            }
+        });
+
+    }
+    // kiem tra su ton tai cua database
+    public boolean isTableExists(SQLiteDatabase database, String tableName) {
+        Cursor cursor = database.rawQuery("select DISTINCT tbl_name from sqlite_master where tbl_name = '"+tableName+"'", null);
+        if(cursor!=null) {
+            if(cursor.getCount()>0) {
+                cursor.close();
+                return true;
+            }
+            cursor.close();
+        }
+        return false;
     }
     public void DanhMuc(){
         Intent viewDanhMuc = new Intent(this,DanhMuc.class);
-        startActivity(viewDanhMuc);
+        startActivityForResult(viewDanhMuc,1);
+    }
+    public  void NhanHieu(){
+        Intent viewNhanHieu = new Intent(this,NhanHieu.class);
+        startActivityForResult(viewNhanHieu,1);
+    }
+    public void KichCo(){
+        Intent viewKichCo = new Intent(this,KichCo.class);
+        startActivityForResult(viewKichCo,1);
+    }
+    public void search(){
+        Intent viewSearch = new Intent(this,Search.class);
+        startActivity(viewSearch);
+    }
+    // ham xu ly ket qua tra ve
+    protected void onActivityResult(int requestCode,int resultCode,Intent data){
+        super.onActivityResult(requestCode,resultCode,data);
+        if(resultCode==1){
+            //noiDung la noi dung tuong ung cua listView duoc tra ve
+            String noidung = data.getStringExtra("noiDung");
+            button.setText(noidung);
+        }
     }
     public void OnClick(View view) {
         switch (view.getId()) {
@@ -198,10 +258,6 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void Delete() {
-
-    }
-
     @Override
     public void onStart() {
         super.onStart();
@@ -240,5 +296,21 @@ public class MainActivity extends AppCompatActivity {
         );
         AppIndex.AppIndexApi.end(client, viewAction);
         client.disconnect();
+    }
+}
+class MyEvent implements View.OnClickListener{
+    public void onClick(View v){
+//        if(v.getId()== R.id.button){
+//            new DanhMuc();
+//        }
+        if(v.getId() == R.id.button2){
+            new NhanHieu();
+        }
+        if(v.getId() == R.id.button3){
+            new KichCo();
+        }
+        if(v.getId() == R.id.searchBtn){
+            new Search();
+        }
     }
 }
