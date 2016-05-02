@@ -6,9 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by Tran Linh on 4/25/2016.
  */
@@ -273,8 +270,8 @@ public class Database extends SQLiteOpenHelper {
         return count;
     }
 
-    public List<SanPham> getAllItem(String tuKhoa,String danhMuc, String nhanHieu,String kichCo,int giaDau,int giaCuoi, String trangThai){
-        List<SanPham> list = new ArrayList<SanPham>();
+    public Cursor getAllItem(String tuKhoa,String danhMuc, String nhanHieu,String kichCo,int giaDau,int giaCuoi, String trangThai){
+//        List<SanPham> list = new ArrayList<SanPham>();
 
         String selectQuery = "SELECT * FROM " + TABLE_SP +" NATURAL JOIN "+ TABLE_DM +" NATURAL JOIN "+ TABLE_MT +" NATURAL JOIN "+ TABLE_NH + " NATURAL JOIN " + TABLE_TT+ " WHERE";
         if(tuKhoa!=null){
@@ -299,19 +296,23 @@ public class Database extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery,null);
 
+        // SP_ID    SP_TEN  NH_ID   NH_TEN  MT_ID   MT_MT   MT_TrangThai    DM_ID   DM_DM   TT_GIA  TT_KC
+        // 0        1       2       3       4       5       6               7       8       9       10
+
         // duyet con tro va them vao danh sach
-        if(cursor.moveToFirst()){
-            do{
-                SanPham sp = new SanPham();
-                sp.setTuKhoa(cursor.getString(1));
-                sp.setDanhMuc(cursor.getString(5));
-                sp.setNhanHieu(cursor.getString(3));
-                sp.setGia(cursor.getInt(9));
-                sp.setKichCo(cursor.getString(10));
-                sp.setTrangThai(cursor.getString(6));
-            }while(cursor.moveToNext());
-        }
-        return list;
+//        if(cursor.moveToFirst()){
+//            do{
+//                SanPham sp = new SanPham();
+//                sp.setTuKhoa(cursor.getString(1));
+//                sp.setDanhMuc(cursor.getString(5));
+//                sp.setNhanHieu(cursor.getString(3));
+//                sp.setGia(cursor.getInt(9));
+//                sp.setKichCo(cursor.getString(10));
+//                sp.setTrangThai(cursor.getString(6));
+//                list.add(sp);
+//            }while(cursor.moveToNext());
+//        }
+        return cursor;
     }
 }
 
