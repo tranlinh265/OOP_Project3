@@ -6,6 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Tran Linh on 4/25/2016.
  */
@@ -248,6 +251,17 @@ public class Database extends SQLiteOpenHelper {
         doInsertInToTableTT(8, 8, 1, 1, 20900000, "48");
     }
 
+
+
+    public void createDefaultIfNeed(){
+        int count = this.count();
+
+        if(count == 0){
+            doInsertInToTableDM(1,"Tivi");
+        }
+    }
+
+    // SQL Query
     public int count(){
         String countQuery = "SELECT * FROM "+ TABLE_SP;
         SQLiteDatabase db = this.getReadableDatabase();
@@ -259,11 +273,45 @@ public class Database extends SQLiteOpenHelper {
         return count;
     }
 
-    public void createDefaultIfNeed(){
-        int count = this.count();
+    public List<SanPham> getAllItem(String tuKhoa,String danhMuc, String nhanHieu,String kichCo,int giaDau,int giaCuoi, String trangThai){
+        List<SanPham> list = new ArrayList<SanPham>();
 
-        if(count == 0){
-            doInsertInToTableDM(1,"Tivi");
+        String selectQuery = "SELECT * FROM " + TABLE_SP +" NATURAL JOIN "+ TABLE_DM +" NATURAL JOIN "+ TABLE_MT +" NATURAL JOIN "+ TABLE_NH + " NATURAL JOIN " + TABLE_TT+ " WHERE";
+        if(tuKhoa!=null){
+            selectQuery += TABLE_SP + "."+SP_TEN+" LIKE %"+tuKhoa+"%";
         }
+        if((danhMuc!=null) && (danhMuc.equals("Tât Cả")==false)){
+            selectQuery += " AND "+TABLE_DM+"."+DM_DM+" = "+danhMuc;
+        }
+        if((nhanHieu != null) && (nhanHieu.equals("Tất Cả") == false)){
+            selectQuery += " AND "+ TABLE_NH+"."+NH_TEN+" = "+nhanHieu;
+        }
+        if((kichCo != null) && (kichCo.equals("Tất Cả") == false) ){
+            selectQuery += " AND " + TABLE_TT+"."+TT_KC+" = "+kichCo;
+        }
+        if((giaDau!= -1) && (giaCuoi!=-1) && (giaDau <= giaCuoi)){
+            selectQuery += " AND "+TABLE_TT+"."+TT_GIA+" IN ("+giaDau+","+giaCuoi+") ";
+        }
+        if((trangThai!= null) && (trangThai.equals("Tất Cả")== false)){
+            selectQuery += " AND "+TABLE_MT+"."+MT_TRANGTHAI+" = "+trangThai;
+        }
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery,null);
+
+        // duyet con tro va them vao danh sach
+        if(cursor.moveToFirst()){
+            do{
+                SanPham sp = new SanPham();
+                sp.setTuKhoa(cursor.getString(1));
+                sp.setDanhMuc(cursor.getString(5));
+                sp.setNhanHieu(cursor.getString(3));
+                sp.setGia(cursor.getInt(9));
+                sp.setKichCo(cursor.getString(10));
+                sp.setTrangThai(cursor.getString(6));
+            }while(cursor.moveToNext());
+        }
+        return list;
     }
 }
+

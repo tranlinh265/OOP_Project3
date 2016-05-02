@@ -15,19 +15,21 @@ import java.util.List;
 public class DanhMuc extends AppCompatActivity {
     private ListView listViewDanhMuc;
     private int[] gia = new int[2];
-    private MainActivity danhMuc = new MainActivity();
+    private MainActivity main = new MainActivity();
     private XuLy xuLyGia = new XuLy();
     final String arr[]={"Teo","Ty","Bin","Bo"};
-        private ArrayList<SanPham> arrayListNoiDung = new ArrayList<SanPham>();
-    private ArrayList<String> test = new ArrayList<String>();
+//    private ArrayList<String> test = new ArrayList<String>();
     private Bundle bundle = new Bundle();
     private Intent intent = new Intent();
+    private Database db = null;
+    private String tuKhoa,danhMuc,nhanHieu,kichCo,trangThai;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_danh_muc);
-        test.add("nam");
-        gia = xuLyGia.CatXau("100-200k");
+        tuKhoa = main.keyWordText.getText();
+//        test.add("nam");
+//        gia = xuLyGia.CatXau("100-200k");
 //        danhMuc.button2.setText(gia[0]+"");
 //        test.add(danhMuc.button.getText().toString());
 //        arrayListNoiDung.add(new SanPham(danhMuc.keyWordText.getText()+"",danhMuc.button.getText()+"",danhMuc.button2.getText()+"",
