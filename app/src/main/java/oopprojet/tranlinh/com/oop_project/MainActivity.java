@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,18 +25,29 @@ import android.widget.RadioGroup;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
+import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     private String status;
+    private Bundle bundle;
+//    private ArrayList<SanPham> noiDung = new ArrayList<SanPham>();
+    private Intent tempIntent = new Intent();
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
     private ImageButton eraseImageButton;
-    private EditText keyWordText,PriceText;
-    private Button button2,button3,statusBtn,searchBtn;
-    public Button button;
+    public static EditText keyWordText,PriceText;
+    public static Button button,button2,button3,statusBtn,searchBtn;
+    public static EditText editTextGia;
     private Database database = new Database(this);
     private SQLiteDatabase Database = null;
 
@@ -78,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.e("T","adfdsfa");
                 DanhMuc();
             }
         });
@@ -96,12 +109,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         statusBtn = (Button)findViewById(R.id.statusBtn);
-//        statusBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                DanhMuc();
-//            }
-//        });
         searchBtn = (Button)findViewById(R.id.searchBtn);
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,21 +116,20 @@ public class MainActivity extends AppCompatActivity {
                 search();
             }
         });
-//        database.doInsertInToDB();
 
     }
     // kiem tra su ton tai cua database
-    public boolean isTableExists(SQLiteDatabase database, String tableName) {
-        Cursor cursor = database.rawQuery("select DISTINCT tbl_name from sqlite_master where tbl_name = '"+tableName+"'", null);
-        if(cursor!=null) {
-            if(cursor.getCount()>0) {
-                cursor.close();
-                return true;
-            }
-            cursor.close();
-        }
-        return false;
-    }
+//    public boolean isTableExists(SQLiteDatabase database, String tableName) {
+//        Cursor cursor = database.rawQuery("select DISTINCT tbl_name from sqlite_master where tbl_name = '"+tableName+"'", null);
+//        if(cursor!=null) {
+//            if(cursor.getCount()>0) {
+//                cursor.close();
+//                return true;
+//            }
+//            cursor.close();
+//        }
+//        return false;
+//    }
     public void DanhMuc(){
         Intent viewDanhMuc = new Intent(this,DanhMuc.class);
         startActivityForResult(viewDanhMuc,1);
