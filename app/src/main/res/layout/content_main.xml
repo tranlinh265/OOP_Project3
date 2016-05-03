@@ -305,7 +305,7 @@
         android:layout_alignStart="@+id/guideBtn"
         android:id="@+id/linearLayout">
 
-        <EditText
+        <AutoCompleteTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/edit_text1"
@@ -313,7 +313,9 @@
             android:text=""
             android:textColor="@color/red_color"
             android:singleLine="true"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:ems="10"/>
+
     </LinearLayout>
 
     <Button

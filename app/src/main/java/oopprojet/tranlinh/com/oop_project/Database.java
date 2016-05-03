@@ -61,10 +61,10 @@ public class Database extends SQLiteOpenHelper {
     //public static final String CREATE_TABLE_TT="CREATE TABLE"+ TABLE_TT+"("+TT_ID_SP+" INTEGER NOT NULL CONSTRAINT"+TT_ID_SP+" REFERENCES "+TABLE_SP+"("+SP_ID+") ON DELETE CASCADE," + TT_ID_MT +"INTEGER NOT NULL CONSTRAINT"+TT_ID_MT+" REFERENCES "++", "+TT_ID_NHAN+" INTEGER NOT NULL, "+TT_ID_DM+" INTEGER NOT NULL, "+TT_GIA+"INTEGER NOT NULL, "+ TT_KC+"TEXT NOT NULL);";
 
     public static final String CREATE_TABLE_TT ="CREATE TABLE " + TABLE_TT+ "( "+
-                                TT_ID_SP+" INTEGER NOT NULL CONSTRAIN "+TT_ID_SP+" REFERENCES "+ TABLE_SP +"("+SP_ID+" ) ON DELETE CASCADE, "+
-                                TT_ID_MT+" INTEGER NOT NULL CONSTRAIN "+TT_ID_MT+" REFERENCES "+ TABLE_MT +"("+MT_ID+" ) ON DELETE CASCADE, "+
-                                TT_ID_NHAN+" INTEGER NOT NULL CONSTRAIN "+TT_ID_NHAN+" REFERENCES "+ TABLE_NH +"("+NH_ID+" ) ON DELETE CASCADE, "+
-                                TT_ID_DM+" INTEGER NOT NULL CONSTRAIN "+TT_ID_DM+" REFERENCES "+ TABLE_DM +"("+DM_ID+" ) ON DELETE CASCADE, "+
+                                TT_ID_SP+" INTEGER , "+
+                                TT_ID_MT+" INTEGER , "+
+                                TT_ID_NHAN+" INTEGER , "+
+                                TT_ID_DM+" INTEGER , "+
                                 TT_GIA+"INTEGER NOT NULL,"+
                                 TT_KC+" TEXT NOT NULL)";
     public static final int DATABASE_VERSION = 4;

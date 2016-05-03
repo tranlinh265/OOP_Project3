@@ -2,7 +2,6 @@ package oopprojet.tranlinh.com.oop_project;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +14,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -38,11 +39,12 @@ public class MainActivity extends AppCompatActivity {
      */
     private GoogleApiClient client;
     private ImageButton eraseImageButton;
-    public static EditText keyWordText,PriceText;
+    public AutoCompleteTextView keyWordText;
+    public static EditText PriceText;
     public static Button button,button2,button3,statusBtn,searchBtn;
     public static EditText editTextGia;
     public Database database;
-
+    String arr[] = {"Sam Sung","Sony"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         eraseImageButton = (ImageButton) findViewById(R.id.eraseImageButton);
 
 
-        keyWordText = (EditText) findViewById(R.id.keyWordText);
+        keyWordText = (AutoCompleteTextView) findViewById(R.id.keyWordText);
         PriceText = (EditText) findViewById(R.id.editText);
         button = (Button)findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
@@ -91,6 +93,13 @@ public class MainActivity extends AppCompatActivity {
                 search();
             }
         });
+
+        // xu ly hien thi goi y
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.select_dialog_item,arr);
+        keyWordText.setThreshold(1);
+        keyWordText.setAdapter(adapter);
+
+        // xu ly thiet lap lai mac dinh khi thay doi tu khoa
         keyWordText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
