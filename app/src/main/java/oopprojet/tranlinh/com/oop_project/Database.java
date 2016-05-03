@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 /**
  * Created by Tran Linh on 4/25/2016.
@@ -272,6 +273,7 @@ public class Database extends SQLiteOpenHelper {
 
     public Cursor getAllItem(String tuKhoa,String danhMuc, String nhanHieu,String kichCo,int giaDau,int giaCuoi, String trangThai){
 //        List<SanPham> list = new ArrayList<SanPham>();
+        Log.e("test","getAllitem");
 
         String selectQuery = "SELECT * FROM " + TABLE_SP +" NATURAL JOIN "+ TABLE_DM +" NATURAL JOIN "+ TABLE_MT +" NATURAL JOIN "+ TABLE_NH + " NATURAL JOIN " + TABLE_TT+ " WHERE";
         if(tuKhoa!=null){

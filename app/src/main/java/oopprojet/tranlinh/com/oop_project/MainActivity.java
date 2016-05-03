@@ -25,6 +25,8 @@ import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
     private String status;
     private Bundle bundle;
@@ -39,14 +41,15 @@ public class MainActivity extends AppCompatActivity {
     public static EditText keyWordText,PriceText;
     public static Button button,button2,button3,statusBtn,searchBtn;
     public static EditText editTextGia;
-    private Database database = new Database(this);
-    private SQLiteDatabase Database = null;
+    public Database database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        Log.d("Insert: ", "Inserting ..");
+        database  = new Database(this);
+//        database.doInsertInToDB();
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.

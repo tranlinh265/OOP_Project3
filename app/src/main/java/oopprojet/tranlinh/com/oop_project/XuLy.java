@@ -54,6 +54,10 @@ public class XuLy {
 //    }
 public int[] CatXau(String xau){
     int[] gia = new int[2];
+    if(xau.length()==0){
+        gia[0]=gia[1]=-1;
+        return gia;
+    }
     String gia1 = cutBefore(xau);
     String gia2 = cutAfter(xau);
     gia[0]=convertToInteger(gia1);

@@ -9,10 +9,10 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="oopprojet.tranlinh.com.oop_project.Search">
 
-    <GridView
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/gridView"
+        android:id="@+id/textViewSearch"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
