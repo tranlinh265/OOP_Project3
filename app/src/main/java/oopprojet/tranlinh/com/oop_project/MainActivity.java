@@ -49,7 +49,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Log.d("Insert: ", "Inserting ..");
         database  = new Database(this);
-//        database.doInsertInToDB();
+        database.doInsertInToDB();
+        Log.e("test","sau insert");
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.

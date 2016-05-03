@@ -67,7 +67,7 @@ public class Database extends SQLiteOpenHelper {
                                 TT_ID_DM+" INTEGER NOT NULL CONSTRAIN "+TT_ID_DM+" REFERENCES "+ TABLE_DM +"("+DM_ID+" ) ON DELETE CASCADE, "+
                                 TT_GIA+"INTEGER NOT NULL,"+
                                 TT_KC+" TEXT NOT NULL)";
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 4;
     public Database(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -81,7 +81,8 @@ public class Database extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_MT);
         db.execSQL(CREATE_TABLE_NH);
         db.execSQL(CREATE_TABLE_TT);
-        doInsertInToDB();
+        Log.e("test","onCreat");
+//        doInsertInToDB();
     }
 
     @Override
