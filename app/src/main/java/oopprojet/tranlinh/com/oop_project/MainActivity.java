@@ -129,8 +129,9 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode,resultCode,data);
         if(resultCode==1){
             //noiDung la noi dung tuong ung cua listView duoc tra ve
-            String noidung = data.getStringExtra("noiDung");
-            button.setText(noidung);
+//            String noidung = data.getStringExtra("noiDung");
+//            button.setText(noidung);
+            ArrayList<SanPham> noiDung = (ArrayList<SanPham>)getIntent().getSerializableExtra("noiDung");
         }
     }
     public void OnClick(View view) {
