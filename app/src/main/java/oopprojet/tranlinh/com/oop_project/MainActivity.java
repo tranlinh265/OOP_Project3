@@ -2,7 +2,6 @@ package oopprojet.tranlinh.com.oop_project;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
@@ -25,14 +24,6 @@ import android.widget.RadioGroup;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
-import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
-import com.google.android.gms.location.LocationListener;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
-
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     private String status;
@@ -56,33 +47,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final EditText editText = (EditText) findViewById(R.id.editText);
-        final EditText editText1 = (EditText) findViewById(R.id.keyWordText);
-
-        editText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-
-            }
-        });
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
 
         eraseImageButton = (ImageButton) findViewById(R.id.eraseImageButton);
-//        eraseImageButton.setOnClickListener(MainActivity.this);
+
 
         keyWordText = (EditText) findViewById(R.id.keyWordText);
         PriceText = (EditText) findViewById(R.id.editText);
@@ -116,20 +87,27 @@ public class MainActivity extends AppCompatActivity {
                 search();
             }
         });
+        keyWordText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                button.setText("Tất Cả");
+                button2.setText("Tất Cả");
+                button3.setText("Tất Cả");
+                statusBtn.setText("Tất Cả");
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
-    // kiem tra su ton tai cua database
-//    public boolean isTableExists(SQLiteDatabase database, String tableName) {
-//        Cursor cursor = database.rawQuery("select DISTINCT tbl_name from sqlite_master where tbl_name = '"+tableName+"'", null);
-//        if(cursor!=null) {
-//            if(cursor.getCount()>0) {
-//                cursor.close();
-//                return true;
-//            }
-//            cursor.close();
-//        }
-//        return false;
-//    }
+
     public void DanhMuc(){
         Intent viewDanhMuc = new Intent(this,DanhMuc.class);
         startActivityForResult(viewDanhMuc,1);
