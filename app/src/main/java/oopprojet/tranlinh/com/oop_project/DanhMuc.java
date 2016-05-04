@@ -19,38 +19,27 @@ public class DanhMuc extends AppCompatActivity {
     private MainActivity main = new MainActivity();
     private XuLy xuLyGia = new XuLy();
     private ArrayList<SanPham> arrayList = new ArrayList<SanPham>();
-    final String arr[]={"Teo","Ty","Bin","Bo"};
+//    final String arr[]={"Teo","Ty","Bin","Bo"};
     private ArrayList<String> test = new ArrayList<String>();
     private Bundle bundle = new Bundle();
     private Intent intent = new Intent();
-    private Database db = null;
-    private String tuKhoa,danhMuc,nhanHieu,kichCo,trangThai;
+    private Database db = new Database(this);
+
+    private String tuKhoa,nhanHieu,kichCo,trangThai;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_danh_muc);
-
-
-
-//        tuKhoa = String.valueOf(main.keyWordText.getText());
-//        danhMuc = String.valueOf(main.button.getText());
-//        nhanHieu = String.valueOf(main.button2.getText());
-//        kichCo = String.valueOf(main.button3.getText());
-//        trangThai = String.valueOf(main.statusBtn.getText());
-//        gia = xuLyGia.CatXau(main.PriceText.getText()+"");
-
-
-
-//        arrayList = db.getAllItem(tuKhoa,danhMuc,nhanHieu,kichCo,gia[0],gia[1],trangThai);
-        test.add("nam");
-        gia = xuLyGia.CatXau("100-200k");
-        main.button2.setText(gia[0]+"");
-        test.add(main.button.getText().toString());
-//        arrayListNoiDung.add(new SanPham(danhMuc.keyWordText.getText()+"",danhMuc.button.getText()+"",danhMuc.button2.getText()+"",
-//                danhMuc.button3.getText()+"",danhMuc.statusBtn.getText()+""));
-//        intent = getIntent();
-//        noiDung = intent.getStringArrayListExtra("info");
-////        noiDung = bundle.getStringArrayList("danhmuc");
+        tuKhoa = new String(main.keyWordText.getText()+"");
+//        danhMuc = String.valueOf(main.button.getText()+"");
+        nhanHieu = String.valueOf(main.button2.getText()+"");
+        kichCo = String.valueOf(main.button3.getText()+"");
+        trangThai = String.valueOf(main.statusBtn.getText()+"");
+        gia = xuLyGia.CatXau(main.PriceText.getText()+"");
+        test = db.getDM(tuKhoa,nhanHieu,kichCo,gia[0],gia[1],trangThai);
+        if(test.isEmpty()){
+            test.add("Không có danh mục phù hợp");
+        }
         listViewDanhMuc = (ListView)findViewById(R.id.listViewDanhMuc);
         ArrayAdapter<String>adapter=new ArrayAdapter<String>
                 (this, android.R.layout.simple_list_item_1,test);

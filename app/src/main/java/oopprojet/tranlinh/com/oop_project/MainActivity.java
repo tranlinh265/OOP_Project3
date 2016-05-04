@@ -39,19 +39,20 @@ public class MainActivity extends AppCompatActivity {
      */
     private GoogleApiClient client;
     private ImageButton eraseImageButton;
-    public AutoCompleteTextView keyWordText;
+    public static AutoCompleteTextView keyWordText;
     public static EditText PriceText;
     public static Button button,button2,button3,statusBtn,searchBtn;
     public static EditText editTextGia;
-    public Database database;
+    public static Database database;
     String arr[] = {"Sam Sung","Sony"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Log.d("Insert: ", "Inserting ..");
+
         database  = new Database(this);
-        database.doInsertInToDB();
+        database.createDefaultIfNeed();
         Log.e("test","sau insert");
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -67,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("T","adfdsfa");
                 DanhMuc();
             }
         });
@@ -94,8 +94,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // xu ly hien thi goi y
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.select_dialog_item,arr);
+        ArrayList<String> arrayList = database.getSP();
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.select_dialog_item,arrayList);
         keyWordText.setThreshold(1);
         keyWordText.setAdapter(adapter);
 
@@ -104,14 +104,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+                // xu ly hien thi goi y
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                button.setText("Tất Cả");
-                button2.setText("Tất Cả");
-                button3.setText("Tất Cả");
-                statusBtn.setText("Tất Cả");
+                button.setText("Tất cả");
+                button2.setText("Tất cả");
+                button3.setText("Tất cả");
+                statusBtn.setText("Tất cả");
             }
 
             @Override
@@ -127,11 +128,11 @@ public class MainActivity extends AppCompatActivity {
     }
     public  void NhanHieu(){
         Intent viewNhanHieu = new Intent(this,NhanHieu.class);
-        startActivityForResult(viewNhanHieu,1);
+        startActivityForResult(viewNhanHieu,2);
     }
     public void KichCo(){
         Intent viewKichCo = new Intent(this,KichCo.class);
-        startActivityForResult(viewKichCo,1);
+        startActivityForResult(viewKichCo,3);
     }
     public void search(){
         Intent viewSearch = new Intent(this,Search.class);
@@ -140,11 +141,20 @@ public class MainActivity extends AppCompatActivity {
     // ham xu ly ket qua tra ve
     protected void onActivityResult(int requestCode,int resultCode,Intent data){
         super.onActivityResult(requestCode,resultCode,data);
+        String noiDung;
         if(resultCode==1){
             //noiDung la noi dung tuong ung cua listView duoc tra ve
-//            String noidung = data.getStringExtra("noiDung");
-//            button.setText(noidung);
-            ArrayList<SanPham> noiDung = (ArrayList<SanPham>)getIntent().getSerializableExtra("noiDung");
+            noiDung = data.getStringExtra("noiDung");
+            button.setText(noiDung);
+//            ArrayList<SanPham> noiDung = (ArrayList<SanPham>)getIntent().getSerializableExtra("noiDung");
+        }
+        if(resultCode==2){
+            noiDung = data.getStringExtra("noiDung");
+            button2.setText(noiDung);
+        }
+        if(resultCode==3){
+            noiDung = data.getStringExtra("noiDung");
+            button3.setText(noiDung);
         }
     }
     public void OnClick(View view) {
@@ -191,7 +201,7 @@ public class MainActivity extends AppCompatActivity {
                         button.setText("Tất cả");
                         button2.setText("Tất cả");
                         button3.setText("Tất cả");
-                        statusBtn.setText("");
+                        statusBtn.setText("Tất cả");
                         eraseConfirmDialog.dismiss();
                     }
                 });
