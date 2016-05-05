@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,7 +17,6 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -30,39 +28,39 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     private String status;
-    private Bundle bundle;
-//    private ArrayList<SanPham> noiDung = new ArrayList<SanPham>();
-    private Intent tempIntent = new Intent();
+
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
-    private ImageButton eraseImageButton;
+
     public static AutoCompleteTextView keyWordText;
     public static EditText PriceText;
     public static Button button,button2,button3,statusBtn,searchBtn;
-    public static EditText editTextGia;
     public static Database database;
-    String arr[] = {"Sam Sung","Sony"};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Log.d("Insert: ", "Inserting ..");
 
+        //load database
         database  = new Database(this);
         database.createDefaultIfNeed();
-        Log.e("test","sau insert");
+
+        // load button, textView ...
+        this.findViewByID();
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
 
-        eraseImageButton = (ImageButton) findViewById(R.id.eraseImageButton);
+    }
 
-
+    private void findViewByID(){
         keyWordText = (AutoCompleteTextView) findViewById(R.id.keyWordText);
+        this.xuLyNutKeyWord();
         PriceText = (EditText) findViewById(R.id.editText);
         button = (Button)findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
@@ -94,6 +92,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+    private void xuLyNutKeyWord(){
+
+        // xu ly hien thi goi y
         ArrayList<String> arrayList = database.getSP();
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.select_dialog_item,arrayList);
         keyWordText.setThreshold(1);
@@ -103,8 +105,6 @@ public class MainActivity extends AppCompatActivity {
         keyWordText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                // xu ly hien thi goi y
             }
 
             @Override
@@ -117,11 +117,10 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-
             }
         });
-    }
 
+    }
     public void DanhMuc(){
         Intent viewDanhMuc = new Intent(this,DanhMuc.class);
         startActivityForResult(viewDanhMuc,1);
@@ -138,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
         Intent viewSearch = new Intent(this,Search.class);
         startActivity(viewSearch);
     }
+
     // ham xu ly ket qua tra ve
     protected void onActivityResult(int requestCode,int resultCode,Intent data){
         super.onActivityResult(requestCode,resultCode,data);
@@ -146,7 +146,6 @@ public class MainActivity extends AppCompatActivity {
             //noiDung la noi dung tuong ung cua listView duoc tra ve
             noiDung = data.getStringExtra("noiDung");
             button.setText(noiDung);
-//            ArrayList<SanPham> noiDung = (ArrayList<SanPham>)getIntent().getSerializableExtra("noiDung");
         }
         if(resultCode==2){
             noiDung = data.getStringExtra("noiDung");
@@ -306,21 +305,5 @@ public class MainActivity extends AppCompatActivity {
         );
         AppIndex.AppIndexApi.end(client, viewAction);
         client.disconnect();
-    }
-}
-class MyEvent implements View.OnClickListener{
-    public void onClick(View v){
-//        if(v.getId()== R.id.button){
-//            new DanhMuc();
-//        }
-        if(v.getId() == R.id.button2){
-            new NhanHieu();
-        }
-        if(v.getId() == R.id.button3){
-            new KichCo();
-        }
-        if(v.getId() == R.id.searchBtn){
-            new Search();
-        }
     }
 }
