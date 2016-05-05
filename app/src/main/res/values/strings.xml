@@ -2,5 +2,5 @@
     <string name="app_name">OOP_Project</string>
     <string name="action_settings">Settings</string>
 
-    <string name="guide">\tNút "Thùng Rác" để xóa hết dữ liệu nhập vào form \n\tKích cơ trong các giá trị từ 1 đến 62 ,XXS ,XS ,S ,M ,L ,XL ,XXL ,XXXL ,Tất cả\n\tChỉ được nhập ước lượng giá, với K là nghin, M là triệu \n\tTrạng thái: Mới, gần như mới, tốt, khá tốt, cũ ( 1 trong các giá trị trên) </string>
+    <string name="guide">\tNút "Thùng Rác" để xóa hết dữ liệu nhập vào form \n\tNhập từ khóa vào ô từ khóa, có thể sử dụng các từ gợi ý sẵn\n\tChọn các thông tin phù hợp rồi ấn vào nút Tìm Kiếm\n\n\t*>Lưu ý: nếu không có hiển thị gợi ý có nghĩa là sản phẩm hiện không có sẵn </string>
 </resources>

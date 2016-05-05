@@ -303,7 +303,8 @@
         android:layout_alignBottom="@+id/imageView"
         android:layout_alignLeft="@+id/guideBtn"
         android:layout_alignStart="@+id/guideBtn"
-        android:id="@+id/linearLayout">
+        android:id="@+id/linearLayout"
+        android:weightSum="1">
 
         <AutoCompleteTextView
             android:layout_width="match_parent"
@@ -314,7 +315,8 @@
             android:textColor="@color/red_color"
             android:singleLine="true"
             android:layout_gravity="center_horizontal"
-            android:ems="10"/>
+            android:ems="10"
+            android:layout_weight="14.50" />
 
     </LinearLayout>
 
@@ -322,6 +324,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Tất cả"
+        android:gravity="end|center"
         android:drawableRight="@drawable/next_icon"
         android:textColor="@color/pink_color"
         android:textSize="@dimen/text_size"
@@ -331,12 +334,15 @@
         android:layout_alignRight="@+id/linearLayout"
         android:layout_alignEnd="@+id/linearLayout"
         android:layout_alignBottom="@+id/imageView2"
-        android:layout_alignTop="@+id/imageView2" />
+        android:layout_alignTop="@+id/imageView2"
+        android:layout_alignLeft="@+id/linearLayout"
+        android:layout_alignStart="@+id/linearLayout" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Tất cả"
+        android:gravity="end|center"
         android:drawableRight="@drawable/next_icon"
         android:textColor="@color/pink_color"
         android:textSize="@dimen/text_size"
@@ -355,6 +361,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Tất cả"
+        android:gravity="end|center"
         android:drawableRight="@drawable/next_icon"
         android:textColor="@color/pink_color"
         android:textSize="@dimen/text_size"
@@ -372,6 +379,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Tất cả"
+        android:gravity="end|center"
         android:drawableRight="@drawable/next_icon"
         android:textColor="@color/pink_color"
         android:textSize="@dimen/text_size"
@@ -382,9 +390,9 @@
         android:layout_alignTop="@+id/imageView6"
         android:layout_alignRight="@+id/textView10"
         android:layout_alignEnd="@+id/textView10"
+        android:layout_alignBottom="@+id/imageView6"
         android:layout_alignLeft="@+id/button3"
-        android:layout_alignStart="@+id/button3"
-        android:layout_alignBottom="@+id/imageView6" />
+        android:layout_alignStart="@+id/button3" />
 
     <EditText
         android:layout_width="wrap_content"
