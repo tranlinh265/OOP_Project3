@@ -399,6 +399,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/editText"
         android:text=""
+
+        android:textColor="@color/red_color"
         android:drawableRight="@drawable/icon"
         android:paddingRight="2dp"
         android:background="@drawable/edit_text1"
