@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
 
         // xu ly hien thi goi y
         ArrayList<String> arrayList = database.getSP();
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.select_dialog_item,arrayList);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,arrayList);
         keyWordText.setThreshold(1);
         keyWordText.setAdapter(adapter);
 

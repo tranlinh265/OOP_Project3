@@ -97,7 +97,7 @@ public class Database extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS "+ TABLE_DM);
         db.execSQL("DROP TABLE IF EXISTS "+ TABLE_MT);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_SP);
-        db.execSQL("DROP TABLE IF EXISTS"+TABLE_TT);
+        db.execSQL("DROP TABLE IF EXISTS" + TABLE_TT);
 
         // Recreate
         onCreate(db);
@@ -299,9 +299,7 @@ public class Database extends SQLiteOpenHelper {
         if(tuKhoa!=null){
             selectQuery += " "+TABLE_SP + "."+SP_TEN+" LIKE '%"+tuKhoa+"%'";
         }
-//        if((danhMuc!=null) && (danhMuc.equals("Tât cả")==false)){
-//            selectQuery += " AND "+TABLE_DM+"."+DM_DM+" = "+danhMuc;
-//        }
+
         if((danhMuc != null) && (danhMuc.equals("Tất cả") == false)){
             selectQuery += " AND "+ TABLE_DM+"."+DM_DM+" ='"+danhMuc+"'";
             Log.e("danhmuc","danh muc");
@@ -321,7 +319,7 @@ public class Database extends SQLiteOpenHelper {
         }
 
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery,null);
+        Cursor cursor = db.rawQuery(selectQuery, null);
         cursor.moveToFirst();
         String noiDung = "";
 //        Log.e("sau noi dung","noi dung");
@@ -441,6 +439,57 @@ public class Database extends SQLiteOpenHelper {
         return arrayList;
     }
 
+    public ArrayList<SanPham> getAllItem1(String tuKhoa, String danhMuc, String nhanHieu, String kichCo, int giaDau, int giaCuoi, String trangThai){
+        ArrayList<SanPham> list = new ArrayList<SanPham>();
+        Log.e("test","getAllitem");
+
+        String selectQuery = "SELECT * FROM " + TABLE_SP +" NATURAL JOIN "+ TABLE_DM +" NATURAL JOIN "+ TABLE_MT +" NATURAL JOIN "+ TABLE_NH + " NATURAL JOIN " + TABLE_TT+ " WHERE";
+        if(tuKhoa!=null){
+            selectQuery += " "+TABLE_SP + "."+SP_TEN+" LIKE '%"+tuKhoa+"%'";
+        }
+
+        if((danhMuc != null) && (danhMuc.equals("Tất cả") == false)){
+            selectQuery += " AND "+ TABLE_DM+"."+DM_DM+" ='"+danhMuc+"'";
+            Log.e("danhmuc","danh muc");
+        }
+        if((nhanHieu != null) && (nhanHieu.equals("Tất cả") == false)){
+            selectQuery += " AND "+ TABLE_NH+"."+NH_TEN+" ='"+nhanHieu+"'";
+            Log.e("nhan hieu","nhan hieu");
+        }
+        if((kichCo != null) && (kichCo.equals("Tất cả") == false) ){
+            selectQuery += " AND " + TABLE_TT+"."+TT_KC+" ='"+kichCo+"'";
+        }
+        if((giaDau!= -1) && (giaCuoi!=-1) && (giaDau <= giaCuoi)){
+            selectQuery += " AND "+TABLE_TT+"."+TT_GIA+" BETWEEN  "+giaDau+"  AND  "+giaCuoi+" ";
+        }
+        if((trangThai != null) && (trangThai.equals("Tất cả") == false)){
+            selectQuery += " AND "+TABLE_MT+"."+MT_TRANGTHAI+" ='"+trangThai+"'";
+        }
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        cursor.moveToFirst();
+
+
+        while (cursor.isAfterLast()==false){
+            SanPham sanPham = new SanPham();
+
+            sanPham.setTuKhoa(cursor.getString(cursor.getColumnIndex(SP_TEN)));
+            sanPham.setDanhMuc(cursor.getString((cursor.getColumnIndex(DM_DM))));
+            sanPham.setNhanHieu(cursor.getString(cursor.getColumnIndex(NH_TEN)));
+            sanPham.setKichCo(cursor.getString(cursor.getColumnIndex(TT_KC)));
+            sanPham.setGia(Integer.parseInt(cursor.getString(cursor.getColumnIndex(TT_GIA))));
+            sanPham.setTrangThai(cursor.getString(cursor.getColumnIndex(MT_TRANGTHAI)));
+
+            list.add(sanPham);
+
+            cursor.moveToNext();
+        }
+        db.close();
+
+
+        return list;
+    }
 
 }
 
