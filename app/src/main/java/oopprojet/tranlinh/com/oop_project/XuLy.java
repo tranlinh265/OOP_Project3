@@ -1,5 +1,7 @@
 package oopprojet.tranlinh.com.oop_project;
 
+import android.util.Log;
+
 /**
  * Created by luatnguyen88 on 4/26/2016.
  */
@@ -37,13 +39,28 @@ public String cutAfter (String string) {
     }
 
     public int convertToInteger (String string) {
-        switch (string.charAt(string.length() - 1)) {
-            case 'k':
-                string = string.substring(0, string.length() - 1) + "000";
-                break;
-            case 'm':
-                string = string.substring(0, string.length() - 1) + "000000";
-                break;
+//        switch (string.charAt(string.length() - 1)) {
+//            case 'k':
+//                string = string.substring(0, string.length() - 1) + "000";
+//                break;
+//            case 'm':
+//                string = string.substring(0, string.length() - 1) + "000000";
+//                break;
+//        }
+        Character temp = string.charAt(string.length()-1);
+        if(temp =='k'){
+            string = string.substring(0,string.length()-1)+"000";
+        }
+        else if(temp =='m'){
+            string = string.substring(0,string.length()-1)+"000000";
+        }
+        else if(temp == '0'||temp=='1'||temp=='2'||temp=='3'||temp=='4'||temp=='5'||temp=='6'||temp=='7'||temp=='8'||temp=='9'){
+            string = string.substring(0,string.length()-1);
+        }
+        else{
+            Log.e("test","-1-1-1-1-1");
+            string = String.valueOf("-1");
+
         }
         return Integer.parseInt(string);
     }

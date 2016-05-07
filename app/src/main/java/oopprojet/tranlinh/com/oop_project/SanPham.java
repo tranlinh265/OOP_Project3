@@ -10,7 +10,7 @@ public class SanPham {
     private String kichCo;
     private int Gia;
     private String trangThai;
-
+    private String moTa;
 
     public String getTuKhoa(){
         return this.tuKhoa;
@@ -62,4 +62,11 @@ public class SanPham {
         return this.tuKhoa;
     }
 
+    public String getMoTa() {
+        return moTa;
+    }
+
+    public void setMoTa(String moTa) {
+        this.moTa = moTa;
+    }
 }
