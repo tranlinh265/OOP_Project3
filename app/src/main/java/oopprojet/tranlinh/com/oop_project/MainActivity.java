@@ -1,6 +1,8 @@
 package oopprojet.tranlinh.com.oop_project;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -178,32 +180,53 @@ public class MainActivity extends AppCompatActivity {
                 break;
             }
             case R.id.eraseImageButton: {
-                final Dialog eraseConfirmDialog = new Dialog(this);
-                eraseConfirmDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                eraseConfirmDialog.setContentView(R.layout.confirm_erase);
-                eraseConfirmDialog.setCanceledOnTouchOutside(false);
+//                final Dialog eraseConfirmDialog = new Dialog(this);
+//                eraseConfirmDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//                eraseConfirmDialog.setContentView(R.layout.confirm_erase);
+//                eraseConfirmDialog.setCanceledOnTouchOutside(false);
+//
+//
+//                eraseConfirmDialog.show();
+//
+//                Button backBtn = (Button) eraseConfirmDialog.findViewById(R.id.backBtn);
+//                backBtn.setOnClickListener(new View.OnClickListener() {
+//                    public void onClick(View v) {
+//                        eraseConfirmDialog.dismiss();
+//                    }
+//                });
+//                Button eraseBtn = (Button) eraseConfirmDialog.findViewById(R.id.eraseBtn);
+//                eraseBtn.setOnClickListener(new View.OnClickListener() {
+//                    public void onClick(View v) {
+//                        keyWordText.setText("");
+//                        PriceText.setText("");
+//                        button.setText("Tất cả");
+//                        button2.setText("Tất cả");
+//                        button3.setText("Tất cả");
+//                        statusBtn.setText("Tất cả");
+//                        eraseConfirmDialog.dismiss();
+//                    }
+//                });
+                final AlertDialog.Builder eraseConfirmDialog = new AlertDialog.Builder(MainActivity.this);
 
-
-                eraseConfirmDialog.show();
-
-                Button backBtn = (Button) eraseConfirmDialog.findViewById(R.id.backBtn);
-                backBtn.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View v) {
-                        eraseConfirmDialog.dismiss();
-                    }
-                });
-                Button eraseBtn = (Button) eraseConfirmDialog.findViewById(R.id.eraseBtn);
-                eraseBtn.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View v) {
+                eraseConfirmDialog.setMessage("Dữ liệu nhập vào form sẽ bị xóa hết");
+                eraseConfirmDialog.setNegativeButton("Đồng ý", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
                         keyWordText.setText("");
                         PriceText.setText("");
                         button.setText("Tất cả");
                         button2.setText("Tất cả");
                         button3.setText("Tất cả");
                         statusBtn.setText("Tất cả");
-                        eraseConfirmDialog.dismiss();
                     }
                 });
+                eraseConfirmDialog.setPositiveButton("Quay lại", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                eraseConfirmDialog.create().show();
                 break;
             }
             case R.id.statusBtn: {
