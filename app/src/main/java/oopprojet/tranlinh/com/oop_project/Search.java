@@ -1,10 +1,16 @@
 package oopprojet.tranlinh.com.oop_project;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -40,13 +46,36 @@ public class Search extends AppCompatActivity {
         this.listViewAdapter = new MyArrayAdapter(this,R.layout.row_item, this.sanPhams);
 
         this.listView.setAdapter(this.listViewAdapter);
+
+        //click vao 1 item thi hien ra mo ta cua item do
         this.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 SanPham sp = sanPhams.get(position);
                 String str = sp.getMoTa();
-                //String str = "abc";
-                Toast.makeText(Search.this,str,Toast.LENGTH_LONG).show();
+
+                final Dialog guideDialog = new Dialog(Search.this);
+                guideDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                guideDialog.setContentView(R.layout.guide);
+                guideDialog.setCanceledOnTouchOutside(false);
+                Window window = guideDialog.getWindow();
+
+                WindowManager.LayoutParams wlp = window.getAttributes();
+
+                wlp.gravity = Gravity.CENTER;
+
+                TextView title = (TextView)guideDialog.findViewById(R.id.textView14);
+                TextView message = (TextView)guideDialog.findViewById(R.id.textView16);
+                title.setText("Mô Tả");
+                message.setText(str);
+                guideDialog.show();
+                Button backBtn = (Button) guideDialog.findViewById(R.id.backBtn);
+                backBtn.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        guideDialog.dismiss();
+                    }
+                });
+
             }
         });
     }

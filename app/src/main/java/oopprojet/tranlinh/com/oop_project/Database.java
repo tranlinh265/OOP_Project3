@@ -13,8 +13,7 @@ import java.util.ArrayList;
  * Created by Tran Linh on 4/25/2016.
  */
 public class Database extends SQLiteOpenHelper {
-    SQLiteDatabase database = null;
-//    Database data ;
+
     // ten database
     private static final String DATABASE_NAME ="database.db";
 
@@ -102,6 +101,8 @@ public class Database extends SQLiteOpenHelper {
         // Recreate
         onCreate(db);
     }
+
+    // them du lieu
     public void doInsertInToTableSP(int id,String name){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -111,7 +112,6 @@ public class Database extends SQLiteOpenHelper {
         db.insert(TABLE_SP, null, values);
         db.close();
     }
-
     public void doInsertInToTableMT(int id, String name,String status){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -135,7 +135,6 @@ public class Database extends SQLiteOpenHelper {
 
         db.close();
     }
-
     public void doInsertInToTableDM(int id,String name){
         SQLiteDatabase db= this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -148,7 +147,6 @@ public class Database extends SQLiteOpenHelper {
 
         db.close();
     }
-
     public void doInsertInToTableTT(int idSp,int idMt,int idDm,int idNhan, int value, String size){
        SQLiteDatabase db= this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -165,9 +163,6 @@ public class Database extends SQLiteOpenHelper {
         db.insert(TABLE_TT, null, values);
         db.close();
     }
-
-
-
     public void doInsertInToDB(){
 
         doInsertInToTableDM(1,"Tivi");
@@ -401,9 +396,6 @@ public class Database extends SQLiteOpenHelper {
         doInsertInToTableTT(7, 7, 1, 2, 15900000, "48");
         doInsertInToTableTT(8, 8, 1, 1, 20900000, "48");
     }
-
-
-
     public void createDefaultIfNeed(){
         int count = this.count();
         if(count == 0){
@@ -549,7 +541,6 @@ public class Database extends SQLiteOpenHelper {
         db.close();
         return arrayList;
     }
-
     public ArrayList<String> getKC(String tuKhoa,String nhanHieu,String danhMuc,int giaDau,int giaCuoi,String trangThai) {
         ArrayList<String> arrayList = new ArrayList<String>();
 
@@ -584,7 +575,6 @@ public class Database extends SQLiteOpenHelper {
         db.close();
         return arrayList;
     }
-
     public ArrayList<SanPham> getAllItem1(String tuKhoa, String danhMuc, String nhanHieu, String kichCo, int giaDau, int giaCuoi, String trangThai){
         ArrayList<SanPham> list = new ArrayList<SanPham>();
         Log.e("test","getAllitem");
