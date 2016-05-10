@@ -28,10 +28,20 @@ public class NhanHieu extends AppCompatActivity {
         setContentView(R.layout.activity_nhan_hieu);
         this.findByID();
 
+        // thong bao neu gia khong hop le
+        if(gia[0]>gia[1]){
+            Toast.makeText(NhanHieu.this,"Giá nhập vào không hợp lệ",Toast.LENGTH_SHORT).show();
+            main.PriceText.setText("");
+            NhanHieu.this.finish();
+        }
+
+        // lay ve cac nhan hieu
         arrayList = db.getNH(tuKhoa,danhMuc,kichCo,gia[0],gia[1],trangThai);
+        // dua ra thong bao neu khong co nhan hieu phu hop
         if(arrayList.isEmpty()){
             Toast.makeText(NhanHieu.this, "Không có nhãn hiệu phù hợp", Toast.LENGTH_LONG).show();
         }
+        // hien thi listView
         listViewDanhMuc = (ListView)findViewById(R.id.listViewNhanHieu);
         ArrayAdapter<String>adapter=new ArrayAdapter<String>
                 (this, android.R.layout.simple_list_item_1,arrayList);
@@ -39,6 +49,8 @@ public class NhanHieu extends AppCompatActivity {
         listViewDanhMuc.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                // dua gia tri duoc chon ve MainActivity
                 intent.putExtra("noiDung", (Serializable) arrayList.get(position));
                 setResult(2,intent);
                 NhanHieu.this.finish();

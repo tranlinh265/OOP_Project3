@@ -394,12 +394,11 @@
         android:layout_alignLeft="@+id/button3"
         android:layout_alignStart="@+id/button3" />
 
-    <EditText
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/editText"
-        android:text=""
-
+        android:onClick="OnClick"
         android:textColor="@color/red_color"
         android:drawableRight="@drawable/icon"
         android:paddingRight="2dp"

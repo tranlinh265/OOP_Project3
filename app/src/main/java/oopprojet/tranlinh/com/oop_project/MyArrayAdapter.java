@@ -12,6 +12,7 @@ import java.util.ArrayList;
 /**
  * Created by Tran Linh on 5/6/2016.
  */
+//custom listview search
 public class MyArrayAdapter extends ArrayAdapter<SanPham> {
     Activity context = null;
     ArrayList<SanPham> arrayList = null;

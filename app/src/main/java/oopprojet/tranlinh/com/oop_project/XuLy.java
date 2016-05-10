@@ -13,6 +13,7 @@ public int[] CatXau(String xau){
         gia[0]=gia[1]=-1;
         return gia;
     }
+
     String gia1 = cutBefore(xau);
     String gia2 = cutAfter(xau);
     gia[0]=convertToInteger(gia1);
@@ -39,14 +40,7 @@ public String cutAfter (String string) {
     }
 
     public int convertToInteger (String string) {
-//        switch (string.charAt(string.length() - 1)) {
-//            case 'k':
-//                string = string.substring(0, string.length() - 1) + "000";
-//                break;
-//            case 'm':
-//                string = string.substring(0, string.length() - 1) + "000000";
-//                break;
-//        }
+
         Character temp = string.charAt(string.length()-1);
         if(temp =='k'){
             string = string.substring(0,string.length()-1)+"000";
@@ -55,7 +49,7 @@ public String cutAfter (String string) {
             string = string.substring(0,string.length()-1)+"000000";
         }
         else if(temp == '0'||temp=='1'||temp=='2'||temp=='3'||temp=='4'||temp=='5'||temp=='6'||temp=='7'||temp=='8'||temp=='9'){
-            string = string.substring(0,string.length()-1);
+            string = string.substring(0,string.length());
         }
         else{
             Log.e("test","-1-1-1-1-1");

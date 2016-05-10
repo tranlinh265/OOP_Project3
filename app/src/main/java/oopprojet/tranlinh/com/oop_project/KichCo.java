@@ -27,10 +27,21 @@ public class KichCo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kich_co);
         this.findByID();
+
+        // thong bao neu gia khong hop le
+        if(gia[0]>gia[1]){
+            Toast.makeText(KichCo.this,"Giá nhập không hợp lệ",Toast.LENGTH_SHORT).show();
+            main.PriceText.setText("");
+            KichCo.this.finish();
+        }
+        // lay ra mang cac kich co phu hop
         arrayList = db.getKC(tuKhoa,nhanHieu,danhMuc,gia[0],gia[1],trangThai);
+
+        // thong bao khi khong co kich co phu hop
         if(arrayList.isEmpty()){
             Toast.makeText(KichCo.this, "Không có kích cỡ phù hợp", Toast.LENGTH_LONG).show();
         }
+        //hien thi kich co
         listViewDanhMuc = (ListView)findViewById(R.id.listViewKichCo);
         ArrayAdapter<String>adapter=new ArrayAdapter<String>
                 (this, android.R.layout.simple_list_item_1,arrayList);
@@ -38,6 +49,7 @@ public class KichCo extends AppCompatActivity {
         listViewDanhMuc.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // dua gia tri kich co duoc chon ra man hinh MainActivity
                 intent.putExtra("noiDung", (Serializable) arrayList.get(position));
                 setResult(3,intent);
                 KichCo.this.finish();

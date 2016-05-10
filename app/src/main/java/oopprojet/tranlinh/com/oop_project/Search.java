@@ -37,10 +37,20 @@ public class Search extends AppCompatActivity {
         trangThai = String.valueOf(main.statusBtn.getText() + "");
         gia = xuLyGia.CatXau(main.PriceText.getText() + "");
 
+        // thong bao neu gia k hop le
+        if(gia[0]>gia[1]){
+            Toast.makeText(Search.this,"Giá nhập không hợp lệ",Toast.LENGTH_SHORT).show();
+            main.PriceText.setText("");
+
+            Search.this.finish();
+        }
+        //lay ve danh cac san pham phu hop
         ArrayList<SanPham> list = db.getAllItem1(tuKhoa,danhMuc,nhanHieu,kichCo,gia[0],gia[1],trangThai);
+        //thong bao neu khong co san pham
         if(list.isEmpty()){
             Toast.makeText(Search.this,"Không có sản phẩm phù hợp",Toast.LENGTH_LONG).show();
         }
+        //hien thi ra
         this.sanPhams.addAll(list);
 
         this.listViewAdapter = new MyArrayAdapter(this,R.layout.row_item, this.sanPhams);

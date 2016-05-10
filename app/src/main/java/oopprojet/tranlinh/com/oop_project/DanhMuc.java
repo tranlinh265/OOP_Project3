@@ -27,10 +27,23 @@ public class DanhMuc extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_danh_muc);
         this.findByID();
+
+        // kiem tra gia
+        if(gia[0]>gia[1]){
+            Toast.makeText(DanhMuc.this,"Giá nhập vào khoog hợp lệ",Toast.LENGTH_SHORT).show();
+            main.PriceText.setText("");
+            DanhMuc.this.finish();
+        }
+
+        // lay ra day cac danh muc phu hop
         arrayList = db.getDM(tuKhoa,nhanHieu,kichCo,gia[0],gia[1],trangThai);
+
+        // thong bao khi khong co danh muc nao phu hop
         if(arrayList.isEmpty()){
             Toast.makeText(DanhMuc.this, "Không có danh mục phù hợp", Toast.LENGTH_LONG).show();
         }
+
+        // hien thi danh muc
         listViewDanhMuc = (ListView)findViewById(R.id.listViewDanhMuc);
         ArrayAdapter<String>adapter=new ArrayAdapter<String>
                 (this, android.R.layout.simple_list_item_1,arrayList);
@@ -38,8 +51,11 @@ public class DanhMuc extends AppCompatActivity {
         listViewDanhMuc.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // tra gia tri danh muc duoc chon de hien thi ra main activity
                 intent.putExtra("noiDung", (Serializable) arrayList.get(position));
                 setResult(1,intent);
+
+                // ket thuc
                 DanhMuc.this.finish();
             }
         });

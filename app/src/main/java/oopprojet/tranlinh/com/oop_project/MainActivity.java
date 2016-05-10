@@ -18,7 +18,7 @@ import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.NumberPicker;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -38,10 +38,10 @@ public class MainActivity extends AppCompatActivity {
     private GoogleApiClient client;
 
     public static AutoCompleteTextView keyWordText;
-    public static EditText PriceText;
+    public static Button PriceText;
     public static Button button,button2,button3,statusBtn,searchBtn;
     public static Database database;
-
+    private String array[]= new String[20];
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,12 +58,15 @@ public class MainActivity extends AppCompatActivity {
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
 
+        // khoi tao array
+        createArray();
+
     }
 
     private void findViewByID(){
         keyWordText = (AutoCompleteTextView) findViewById(R.id.keyWordText);
         this.xuLyNutKeyWord();
-        PriceText = (EditText) findViewById(R.id.editText);
+        PriceText = (Button) findViewById(R.id.editText);
         button = (Button)findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -161,6 +164,8 @@ public class MainActivity extends AppCompatActivity {
     public void OnClick(View view) {
         switch (view.getId()) {
             case R.id.guideBtn: {
+                // su kien khi click vao button huong dan
+
                 final Dialog guideDialog = new Dialog(this);
                 guideDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 guideDialog.setContentView(R.layout.guide);
@@ -180,32 +185,8 @@ public class MainActivity extends AppCompatActivity {
                 break;
             }
             case R.id.eraseImageButton: {
-//                final Dialog eraseConfirmDialog = new Dialog(this);
-//                eraseConfirmDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//                eraseConfirmDialog.setContentView(R.layout.confirm_erase);
-//                eraseConfirmDialog.setCanceledOnTouchOutside(false);
-//
-//
-//                eraseConfirmDialog.show();
-//
-//                Button backBtn = (Button) eraseConfirmDialog.findViewById(R.id.backBtn);
-//                backBtn.setOnClickListener(new View.OnClickListener() {
-//                    public void onClick(View v) {
-//                        eraseConfirmDialog.dismiss();
-//                    }
-//                });
-//                Button eraseBtn = (Button) eraseConfirmDialog.findViewById(R.id.eraseBtn);
-//                eraseBtn.setOnClickListener(new View.OnClickListener() {
-//                    public void onClick(View v) {
-//                        keyWordText.setText("");
-//                        PriceText.setText("");
-//                        button.setText("Tất cả");
-//                        button2.setText("Tất cả");
-//                        button3.setText("Tất cả");
-//                        statusBtn.setText("Tất cả");
-//                        eraseConfirmDialog.dismiss();
-//                    }
-//                });
+
+                // su kien khi click vao button xoa
                 final AlertDialog.Builder eraseConfirmDialog = new AlertDialog.Builder(MainActivity.this);
 
                 eraseConfirmDialog.setMessage("Dữ liệu nhập vào form sẽ bị xóa hết");
@@ -230,11 +211,13 @@ public class MainActivity extends AppCompatActivity {
                 break;
             }
             case R.id.statusBtn: {
+
+                // su kien khi click vao button trang thai
                 status = "Mới";
                 final Dialog statusDialog = new Dialog(this);
                 statusDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 statusDialog.setContentView(R.layout.status);
-                statusDialog.setCanceledOnTouchOutside(false);
+
 
                 statusDialog.show();
                 final Button tmpBtn = (Button) findViewById(R.id.statusBtn);
@@ -263,10 +246,73 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             }
+            case R.id.editText:{
+                // su kien khi click vao button gia
+
+                final Dialog priceDialog = new Dialog(this);
+                priceDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                priceDialog.setContentView(R.layout.activity_price);
+
+                Window window = priceDialog.getWindow();
+                WindowManager.LayoutParams wlp = window.getAttributes();
+
+                wlp.gravity = Gravity.BOTTOM;
+
+                priceDialog.show();
+
+                final NumberPicker giaDau = (NumberPicker)priceDialog.findViewById(R.id.numberPicker);
+                final NumberPicker giaCuoi = (NumberPicker)priceDialog.findViewById(R.id.numberPicker2);
+
+
+                giaDau.setMinValue(0);
+                giaDau.setMaxValue(array.length - 1);
+                giaDau.setDisplayedValues(array);               // hien thi gia theo dung gia tri cua mang
+                giaDau.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+                giaDau.setWrapSelectorWheel(false);
+                giaDau.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+                    @Override
+                    public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                        // khi thay doi giaDau, neu lam cho giaDau lon hon giaCuoi thi tu dong tang gia tri cua giaCuoi len
+                        if(Integer.parseInt(array[newVal]) >= Integer.parseInt(array[giaCuoi.getValue()])) {
+                            giaCuoi.setValue(newVal + 1);
+                        }
+
+                        // dua thong tin gia ve cho PriceText
+                        PriceText.setText(array[newVal] + "-" + array[giaCuoi.getValue()]);
+                    }
+                });
+
+
+                giaCuoi.setMinValue(0);
+                giaCuoi.setMaxValue(array.length - 1);
+                giaCuoi.setDisplayedValues(array);
+                giaCuoi.setWrapSelectorWheel(false);
+                giaCuoi.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+                giaCuoi.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+                    @Override
+                    public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                        // khi thay doi giaCuoi, neu lam cho giaCuoi nho hon giaDau thi tu dong giam gia tri cua giaDau
+                        if(Integer.parseInt(array[newVal]) <= Integer.parseInt(array[giaDau.getValue()])) {
+                            giaDau.setValue(newVal - 1);
+                        }
+
+                        //dua thong tin ve cho PriceText
+                        PriceText.setText(array[giaDau.getValue()]+"-"+array[newVal]);
+                    }
+                });
+            }
 
         }
     }
 
+    private void createArray(){
+        // ham khoi tao gia tri cho array
+        int i;
+        array[0] = "500000";
+        for(i =1; i< 20;i++){
+            array[i] = String.valueOf((i+2)*500000);
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
